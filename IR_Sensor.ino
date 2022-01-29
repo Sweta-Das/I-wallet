@@ -21,4 +21,13 @@ void loop()
     digitalWrite(3,LOW);//LED off
   }
 
+unsigned long time = millis();                         
+  const unsigned long tenMinutes = 10 * 60 * 1000;  
+  static unsigned long lastSampleTime = 0 - tenMinutes;  
+  if (time - lastSampleTime >= tenMinutes){        //If 10 minute is passed, do the desired operations
+    lastSampleTime = lastSampleTime + tenMinutes;
+    Serial.println("No Card");
+    digitalWrite(3,HIGH);//LED on    
+}  
+
 }
