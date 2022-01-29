@@ -156,7 +156,7 @@ void send_sms() {
   SIM808.println("AT+CMGS=\"9811363737\"");//Receiver phone number
   delay(1000);
   SIM808.print("http://maps.google.com/?q=");
-  Serial.print("Longitude: ");
+  SIM808.print("Longitude: ");
   SIM808.print(longitude);
   SIM808.print(',');
   SIM808.println("Latitude: ");
