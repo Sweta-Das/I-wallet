@@ -153,15 +153,17 @@ int8_t get_GPS() {
 void send_sms() {
   SIM808.println("AT+CMGF=1");// SMS Mode
   delay(1000);
-  SIM808.println("AT+CMGS=\"0791234567\"");//Change the receiver phone number
+  SIM808.println("AT+CMGS=\"9811363737\"");//Receiver phone number
   delay(1000);
   SIM808.print("http://maps.google.com/?q=");
+  Serial.print("Longitude: ");
   SIM808.print(longitude);
   SIM808.print(',');
+  SIM808.println("Latitude: ");
   SIM808.println(latitude);
   delay(1000);
   SIM808.write(26);// end sms
-  Serial.println("SMS Sent");
+  Serial.println("Location Sent");
   delay(1000);
 
 }
