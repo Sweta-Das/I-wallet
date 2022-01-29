@@ -2,15 +2,15 @@
 
 #define COLLECT_NUMBER 1  //To set one fingerprint sample
 #define IRQ         6  //IRQ pin 
-
+#define FPSerial Serial1
 
 #include <SoftwareSerial.h>//import fingerprint library for Arduino
 SoftwareSerial Serial1(2, 3);  //set software serial on pins 2 and 3,pin 2 as RX and pin 3 as TX
-#define FPSerial Serial1
 
 DFRobot_ID809 fingerprint;
 //String desc;
-
+void fingerprintMatching();
+void fingerprintRegistration();
 void setup(){
   
   Serial.begin(9600);//fingerprint sensor module setup
@@ -42,32 +42,21 @@ void loop(){
     
     if(i == 0){
       Serial.println("INVALID");//fingerprint capture failes=d
-    }else if(i > 0 && i < 15){
+    }
+    else if(i > 0 && i < 15)
+    {
       fingerprintMatching();//compare fingerprint
-    }else(i >= 15 && i < 30){
-      fingerprintRegistration();//register fingrprint
-  
+    }
+    else
+      fingerprintRegistration();//register fingrprint  
   }
-}
-
-//Compare fingerprints with fingerprint stored in the library
-void fingerprintMatching(){
-  uint8_t ret = fingerprint.search();
-  if(ret != 0){
-    Serial.print("Successfully matched,ID=");
-    Serial.println(ret);
-  }else{
-    Serial.println("Matching failed");
-  }
-  delay(1000);
-  
 }
 
 //Fingerprint Registration of the User
 void fingerprintRegistration(){
   uint8_t ID,i;  //compares the user's fingerprint
   fingerprint.search();   //Can add "if else" statement to judge whether the fingerprint has been registered. 
-//if no fingerprint in the library the add fingerprint
+  //if no fingerprint in the library the add fingerprint
   if((ID = fingerprint.getEmptyID()) == ERR_ID809){
     while(1){
       /*Get error code imformation*/
@@ -102,4 +91,20 @@ void fingerprintRegistration(){
     Serial.println("Saving failed");
     //Get error code information  
   }
+}
+
+//Compare fingerprints with fingerprint stored in the library
+void fingerprintMatching()
+{
+  uint8_t ret = fingerprint.search();
+  if(ret != 0)
+  {
+    Serial.print("Successfully matched,ID=");
+    Serial.println(ret);
+  }
+  else
+  {
+    Serial.println("Matching failed");
+  }
+  delay(1000); 
 }
