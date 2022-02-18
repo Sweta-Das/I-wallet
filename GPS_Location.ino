@@ -30,8 +30,8 @@ void loop()
        Serial.print("Longitude="); 
        Serial.println(gps.location.lng(), 6);//gps.location.lng() function is used for longitude value. (Print)
        
-       Latitude = gps.location.lat();//gps modulunden alinan enlem degerini degiskene aktar.
-       Longitude = gps.location.lng();//gps modulundan alinan boylam degerini degiskene aktar.
+       Latitude = gps.location.lat();//gps update.
+       Longitude = gps.location.lng();//gps update.
        break;
       }
   }
